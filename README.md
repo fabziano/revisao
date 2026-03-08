@@ -1,5 +1,101 @@
 ## [https://fabziano.github.io/revisao/](https://fabziano.github.io/revisao/)
 
+## Revisão
+
+**O QUE É BI?**
+* Business Intelligence não é apenas um software (como Power BI ou Tableau).
+* É um processo estratégico que utiliza tecnologia para coletar, organizar, analisar e compartilhar dados.
+* O objetivo final é um só: suportar a tomada de decisão baseada em fatos, e não em intuições.
+* **BI (O Olhar Estruturado):** Foca em dados estruturados (tabelas), relatórios e no "que aconteceu". Exemplo: Seleção alemã analisando desempenho passado para ganhar a Copa.
+* **Data Science (O Olhar Preditivo):** Lida com dados não estruturados (textos, vídeos, áudios) e usa Machine Learning para prever o futuro e descobrir padrões ocultos.
+
+---
+
+**OLTP vs. OLAP**
+* **OLTP (Processamento Transacional Online):** Sistema operacional "ao vivo" que registra as transações no momento em que acontecem.
+    * Foco: Velocidade de gravação e integridade. Não pode haver erro no estoque ou no caixa.
+    * Estrutura: Tabelas Normalizadas. Dados quebrados em tabelas pequenas para evitar redundância.
+    * Exemplo: Registro de venda via código de barras.
+* **OLAP (Processamento Analítico Online):** Sistema de análise que consulta milhões de vendas passadas.
+    * Foco: Velocidade de leitura e resposta a perguntas complexas.
+    * Estrutura: Tabelas Desnormalizadas (Multidimensionais).
+    * Exemplo: Painel de lucro líquido por estado e período.
+
+---
+
+**O FLUXO ETL (A FÁBRICA DE DADOS)**
+* Os dados no OLTP estão "sujos" para análise e passam pelo processo ETL para ir ao Data Warehouse (DW).
+* **1) Extract (Extração):** Copia dados de várias fontes (SQL, Excel, CSV, redes sociais).
+* **2) Transform (Transformação):** Etapa mais importante.
+    * Limpeza: Remove registros duplicados ou incompletos.
+    * Padronização: Converte formatos distintos (ex: "1" e "M" para "Masculino").
+    * Cálculos: Calcula margens ou impostos não prontos na origem.
+* **3) Load (Carga):** Dados limpos são despejados no Data Warehouse.
+
+---
+
+**MODELAGEM DIMENSIONAL (STAR SCHEMA)**
+* No BI, utiliza-se o Star Schema (Esquema Estrela).
+* **1) Tabela Fato (Centro):** Contém métricas como quantidade vendida, valor pago e tempo de espera.
+    * **Granularidade:** Nível de detalhe. Alta (detalhada) ou baixa (agregada). Prefira sempre a granularidade mais detalhada possível.
+* **2) Tabelas Dimensão (Pontas):** Contêm características descritivas para filtros (ex: dim_produto, dim_tempo, dim_cliente).
+* **Snowflake Schema:** Variação do modelo dimensional com dimensões normalizadas.
+
+---
+
+**NAVEGANDO NO CUBO (OPERAÇÕES OLAP)**
+1. **Slice (Fatiar):** Seleciona uma fatia (ex: apenas o ano de 2024).
+2. **Dice (Dados):** Seleciona um sub-cubo (ex: Notebooks em Foz do Iguaçu em Janeiro).
+3. **Drill-Down:** Aumenta o detalhe (ex: de Ano para Mês, depois para Dia).
+4. **Roll-Up:** Diminuir o detalhe/agrupar (ex: de Cidades para Estado).
+5. **Pivot:** Gira o relatório (muda linhas por colunas).
+
+---
+
+**MATURIDADE ANALÍTICA E IA**
+1. **Análise Descritiva:** "O que aconteceu?".
+2. **Análise Diagnóstica:** "Por que aconteceu?" (causa raiz).
+3. **Análise Preditiva:** "O que vai acontecer?" (IA e estatística).
+4. **Análise Prescritiva:** "O que devemos fazer?" (sugestão de ação).
+* A IA automatiza o repetitivo; o humano entra com julgamento crítico, criatividade e contexto.
+
+---
+
+**REGRAS DE OURO DE KIMBALL**
+1) Sempre inclua uma dimensão de Tempo.
+2) Toda medida na Tabela Fato deve ter a mesma granularidade.
+3) Dados detalhados (alta granularidade) são melhores para consultas flexíveis.
+
+---
+
+**DICAS**
+* **Surrogate Key (SK):** Chave própria do BI (1, 2, 3...). Nunca use apenas a chave do sistema original.
+* **SCD (Slowly Changing Dimension):** Tratamento de mudanças. SCD Tipo 2 mantém histórico criando uma nova linha.
+* **Governança:** Garante que definições (ex: "Lucro") sejam iguais para todos os departamentos.
+* **MOLAP vs ROLAP:** MOLAP é mais rápido porque já guarda os dados em um "Cubo" pronto.
+* **Análise de Diagnóstico:** Associada à operação de Drill-down para achar a causa raiz.
+* **KDD (Descoberta de Conhecimento):** Tem como núcleo a Mineração de Dados (Data Mining).
+* **Churn:** Nome técnico para cancelamento de clientes.
+* **Dashboard de Transparência:** Uso de BI para dados públicos (Governo).
+* **Viés (Bias):** Erro da IA por dados incompletos ou viciados.
+
+---
+
+**CASO PRÁTICO: REDE DE ACADEMIAS**
+* **Cenário:** Perda de alunos (Churn). Dados divididos entre OLTP e planilhas.
+* **KPI 1: Taxa de Evasão (Churn Rate):** (Alunos que cancelaram / Total ativos) * 100.
+* **KPI 2: Índice de Frequência:** (Total acessos catraca / Alunos matriculados).
+* **Modelagem:** Fato Presenca (granularidade por acesso) e Dimensões Aluno, Unidade, Tempo e Modalidade.
+* **ETL:** Extração (SQL e CSV), Transformação (Padronizar idades e limpar CPFs) e Carga (DW).
+* **Operações OLAP:** Slice (ano 2024), Dice (Mulheres/Curitiba/Yoga), Drill-down (meses com mais faltas), Pivot (Cidades nas colunas).
+* **Evolução IA:**
+    * Descritiva: Mostra que 20% saíram.
+    * Preditiva: Identifica 80% de chance de cancelamento após 15 dias de ausência.
+    * Prescritiva: Envia automaticamente cupom ou mensagem de incentivo. 
+---
+        
+## Questões
+
 ### 1 - Explique a diferença fundamental entre sistemas OLTP e OLAP e justifique por que não devemos realizar análises complexas diretamente no banco de dados OLTP.
 
 > **OLTP (Processamento Transacional)** foca na operação em tempo real, com alta velocidade de gravação e tabelas normalizadas para garantir integridade.
@@ -124,5 +220,6 @@
 > A **Prescritiva** sugere a ação (ex: "Aumente o estoque em 30% e contrate dois entregadores extras"). No varejo, isso pode significar ajustar preços dinamicamente com base na previsão de estoque e concorrência.
 
 <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/15.wav" controls></audio>
+
 
 
