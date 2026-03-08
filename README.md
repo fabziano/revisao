@@ -1,4 +1,4 @@
-## Revisão
+## [https://fabziano.github.io/revisao/](https://fabziano.github.io/revisao/)
 
 ### 1 - Explique a diferença fundamental entre sistemas OLTP e OLAP e justifique por que não devemos realizar análises complexas diretamente no banco de dados OLTP.
 
@@ -124,4 +124,5 @@
 > A **Prescritiva** sugere a ação (ex: "Aumente o estoque em 30% e contrate dois entregadores extras"). No varejo, isso pode significar ajustar preços dinamicamente com base na previsão de estoque e concorrência.
 
 <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/15.wav" controls></audio>
+
 
