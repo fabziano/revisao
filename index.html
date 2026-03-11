@@ -1,146 +1,144 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revisão</title>
     <style>
-        body{background-color:#0f172a;color:#f1f5f9;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;margin:0;padding:1rem;line-height:1.5}
-        main{max-width:56rem;margin:0 auto}
-        h1{font-size:1.875rem;font-weight:700;color:#fff;border-bottom:1px solid #334155;padding-bottom:1rem;margin-bottom:2rem}
-        section{background-color:#1e293b;border-radius:.5rem;padding:1.5rem;margin-bottom:2rem;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
-        h3{font-size:1.25rem;font-weight:700;margin-top:0;margin-bottom:1rem;line-height:1.25;color:#f8fafc}
-        blockquote{border-left:4px solid #3b82f6;padding-left:1rem;color:#cbd5e1;font-style:normal;margin:1rem 0}
-        audio{width:100%;margin-top:1rem}
-        @media (min-width:768px){body{padding:2rem}}
+        :root{--fundo:#121212;--texto:#ffffff;--cinza:#b3b3b3}body{margin:0;background:var(--fundo);color:var(--texto);font-family:ui-sans-serif,system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center}
+        main{width:100%;max-width:28.125rem;display:flex;flex-direction:column;padding:1.5rem;box-sizing:border-box}
+        figure{display:flex;align-items:center;justify-content:center;padding:1.25rem 0;margin:0;flex:none}
+        .capa{width:100%;aspect-ratio:1/1;background:#282828;border-radius:.5rem;box-shadow:0 .5rem 2rem rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center}
+        .faixa{margin-bottom:2rem}
+        h2{margin:0;font-size:1.5rem;font-weight:700;min-height:1.2em}
+        .progresso{margin-bottom:2rem}
+        #barra{width:100%;height:.25rem;background:rgba(255,255,255,0.1);border-radius:.125rem;position:relative;cursor:pointer}
+        #cheio{height:100%;background:#fff;border-radius:.125rem;width:0%}
+        .tempo{display:flex;justify-content:between;margin-top:.5rem;font-size:.75rem;color:var(--cinza)}
+        .controles{display:flex;justify-content:center;align-items:center;gap:2.5rem;margin-bottom:2.5rem}button{background:none;border:none;color:#fff;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;user-select:none;-webkit-tap-highlight-color:transparent;outline:none}
+        .play{width:4.5rem;height:4.5rem;background:#fff;color:#000;border-radius:50%}
+        .tempo time:last-child{margin-left:auto}
     </style>
 </head>
 <body>
+
     <main>
-        <h1>Revisão</h1>
+        <figure>
+            <div class="capa">
+                <svg width="200" height="200" viewBox="0 0 24 24" fill="#444">
+                    <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/>
+                </svg>
+            </div>
+        </figure>
 
-        <section>
-            <h3>1 - Explique a diferença fundamental entre sistemas OLTP e OLAP e justifique por que não devemos realizar análises complexas diretamente no banco de dados OLTP.</h3>
-            <blockquote lang="pt-pt">
-                OLTP (Processamento Transacional) foca na operação em tempo real, com alta velocidade de gravação e tabelas normalizadas para garantir integridade.
-                OLAP (Processamento Analítico) foca na consulta de dados históricos e velocidade de leitura para análise.
-                Não se deve realizar análises complexas no OLTP porque isso consome recursos do sistema "ao vivo", podendo causar lentidão ou travamentos nas transações diárias (como vendas e registos).
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/1.wav" controls></audio>
+        <section class="faixa">
+            <h2 id="titulo"></h2>
         </section>
 
-        <section>
-            <h3>2 - No caso das Drogarias XPTO, os preços eram definidos de forma descentralizada. Como o Business Intelligence centralizou esse processo e quais foram as principais variáveis utilizadas para a nova estratégia?</h3>
-            <blockquote lang="pt-pt">
-                O BI centralizou o processo ao consolidar dados de diversas fontes descentralizadas. As principais variáveis utilizadas incluem preços da concorrência, margens de lucro, custos de aquisição e sazonalidade para definir uma estratégia de preço única e baseada em factos.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/2.wav" controls></audio>
+        <section class="progresso">
+            <div id="barra">
+                <div id="cheio"></div>
+            </div>
+            <div class="tempo">
+                <time id="atual">0:00</time>
+                <time id="total">0:00</time>
+            </div>
         </section>
 
-        <section>
-            <h3>3 - Descreva as três etapas do processo ETL e identifique qual delas é a mais crítica quando as fontes de dados possuem formatos diferentes (ex: Sexo como "1" e "M").</h3>
-            <blockquote lang="pt-pt">
-                As etapas são: Extract (Extração), Transform (Transformação) e Load (Carga). A etapa mais crítica é a Transformação, pois é nela que ocorre a limpeza e padronização (ex: converter "1" e "M" para "Masculino"), garantindo que dados de fontes diferentes falem a mesma língua.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/3.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>4 - O que é "Granularidade" em uma tabela fato e por que o ENADE afirma que uma granularidade detalhada é essencial para o sucesso da Inteligência Artificial?</h3>
-            <blockquote lang="pt-pt">
-                Granularidade é o nível de detalhe de um registo na tabela fato. Uma granularidade detalhada (alta) é essencial para a IA porque permite que os algoritmos identifiquem padrões ocultos e comportamentos específicos que seriam perdidos em dados agregados (médias ou totais).
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/4.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>5 - Diferencie o Esquema Estrela (Star Schema) do Esquema Floco de Neve (Snowflake) em termos de normalização e performance de consulta.</h3>
-            <blockquote lang="pt-pt">
-                O Star Schema é desnormalizado, possuindo uma estrutura simples onde a fato se liga diretamente às dimensões, o que resulta em maior performance de consulta. O Snowflake é normalizado (as dimensões são quebradas em subtabelas), o que economiza espaço em disco, mas reduz a performance devido à necessidade de múltiplos joins.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/5.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>6 - Imagine que um gestor está vendo o faturamento anual e quer ver o faturamento por meses e, depois, por dias. Quais operações OLAP ele está realizando? Explique o conceito.</h3>
-            <blockquote lang="pt-pt">
-                O gestor está realizando operações de Drill-Down. O conceito consiste em "mergulhar" nos dados, aumentando o nível de detalhe dentro de uma hierarquia dimensional (ex: tempo).
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/6.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>7 - No exemplo da Seleção Alemã na Copa de 2014, como o Business Intelligence contribuiu para a tomada de decisão técnica?</h3>
-            <blockquote lang="pt-pt">
-                O BI contribuiu através da análise de desempenho estruturado, coletando dados de partidas passadas e métricas de jogadores para otimizar o posicionamento técnico e tático baseado em evidências estatísticas de sucesso.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/7.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>8 - Por que um Data Warehouse (DW) é considerado um repositório "orientado por assunto" e "não volátil"?</h3>
-            <blockquote lang="pt-pt">
-                Orientado por assunto: Organizado em torno de temas principais da empresa (Vendas, Produtos, Clientes), ignorando dados que não são úteis para o processo de decisão.
-                Não volátil: Uma vez que o dado entra no DW, ele não é alterado ou excluído; ele serve como um registo histórico permanente.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/8.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>9 - Explique o conceito de "Sistemas Especialistas" e discuta por que a probabilidade em uma regra "Se-Então" aplica-se ao indivíduo e não necessariamente ao grupo.</h3>
-            <blockquote lang="pt-pt">
-                Sistemas Especialistas emulam o raciocínio humano através de regras lógicas. A probabilidade aplica-se ao indivíduo porque, embora um grupo tenha uma tendência média, cada indivíduo possui variáveis específicas que determinam sua probabilidade única de ocorrência em uma regra de negócio.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/9.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>10 - Uma empresa de telecomunicações quer prever o Churn (cancelamento). Qual a diferença entre usar Análise Descritiva e Análise Preditiva para este problema?</h3>
-            <blockquote lang="pt-pt">
-                A Análise Descritiva informa quantos clientes cancelaram no passado e quais as características deles. A Análise Preditiva utiliza esses dados históricos para identificar quais dos clientes atuais têm maior probabilidade de cancelar no futuro próximo.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/10.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>11 - O que é "Data Storytelling" e por que conhecer o público-alvo é a regra mais importante desta prática?</h3>
-            <blockquote lang="pt-pt">
-                Data Storytelling é a arte de construir uma narrativa em torno dos dados para facilitar a compreensão. Conhecer o público-alvo é a regra mais importante porque o nível de detalhe técnico e o tipo de visualização devem ser adaptados para quem vai consumir a informação.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/11.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>12 - Em um projeto de IA, os analistas notaram que o modelo estava "viciado" (com viés) para certas regiões. Como a qualidade e a representatividade dos dados no Data Warehouse influenciam este resultado?</h3>
-            <blockquote lang="pt-pt">
-                Se os dados no DW forem incompletos, viciados ou não representarem todas as regiões, a IA aprenderá esses mesmos preconceitos. A qualidade e representatividade dos dados são o alicerce; dados "sujos" ou parciais resultam em modelos de IA injustos ou erróneos.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/12.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>13 - Discuta a afirmação: "A Inteligência Artificial vai substituir completamente os analistas de dados". Utilize os conceitos de julgamento crítico e contexto.</h3>
-            <blockquote lang="pt-pt">
-                A IA não substituirá completamente os analistas porque, embora seja superior em processamento e cálculos, ela carece de julgamento crítico e contexto. O analista humano é necessário para interpretar os resultados dentro da realidade do negócio e tomar decisões éticas e criativas.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/13.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>14 - Qual a função das "Surrogate Keys" (Chaves Artificiais) na modelagem dimensional e por que não devemos usar apenas as chaves originais do sistema transacional?</h3>
-            <blockquote lang="pt-pt">
-                A função da SK é criar uma chave primária interna para o BI (independente do sistema de origem). Não se deve usar a chave original porque, se o sistema transacional mudar ou for substituído, o histórico e as ligações entre as tabelas no DW seriam perdidos.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/14.wav" controls></audio>
-        </section>
-
-        <section>
-            <h3>15 - Explique como a análise "Prescritiva" vai um passo além da análise "Preditiva". Dê um exemplo prático baseado em logística ou varejo.</h3>
-            <blockquote lang="pt-pt">
-                A Preditiva indica o que vai acontecer (ex: "A demanda aumentará 30%"). A Prescritiva sugere a ação (ex: "Aumente o estoque em 30% e contrate dois entregadores extras"). No varejo, isso pode significar ajustar preços dinamicamente com base na previsão de estoque e concorrência.
-            </blockquote>
-            <audio src="https://raw.githubusercontent.com/fabziano/revisao/main/audio/15.wav" controls></audio>
-        </section>
+        <nav class="controles">
+            <button id="voltar" aria-label="Anterior">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button class="play" id="botao" aria-label="Reproduzir/Pausar">
+                <svg id="liga" width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="para" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button id="pular" aria-label="Próximo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+            </button>
+        </nav>
     </main>
+
+    <audio id="som"></audio>
+
+    <script>
+        const faixas = [
+            { t: "OLTP vs OLAP", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/1.wav" },
+            { t: "Centralização Drogarias XPTO", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/2.wav" },
+            { t: "Processo ETL", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/3.wav" },
+            { t: "Granularidade", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/4.wav" },
+            { t: "Star Schema vs Snowflake", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/5.wav" },
+            { t: "Operações Drill-Down", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/6.wav" },
+            { t: "BI Seleção Alemã", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/7.wav" },
+            { t: "Propriedades do DW", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/8.wav" },
+            { t: "Sistemas Especialistas", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/9.wav" },
+            { t: "Churn: Descritiva vs Preditiva", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/10.wav" },
+            { t: "Data Storytelling", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/11.wav" },
+            { t: "Viés na IA", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/12.wav" },
+            { t: "IA vs Analistas", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/13.wav" },
+            { t: "Surrogate Keys", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/14.wav" },
+            { t: "Análise Prescritiva", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/15.wav" },
+            { t: "Operações OLAP", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/16.wav" },
+            { t: "Dicas", s: "https://raw.githubusercontent.com/fabziano/revisao/main/audio/17.wav" }
+        ];
+
+        let index = 0;
+        const dom = {
+            som: document.getElementById('som'),
+            titulo: document.getElementById('titulo'),
+            cheio: document.getElementById('cheio'),
+            atual: document.getElementById('atual'),
+            total: document.getElementById('total'),
+            barra: document.getElementById('barra'),
+            liga: document.getElementById('liga'),
+            para: document.getElementById('para'),
+            botao: document.getElementById('botao')
+        };
+
+        const fmt = s => {
+            if (isNaN(s)) return "0:00";
+            const m = (s / 60) | 0;
+            const sc = (s % 60) | 0;
+            return m + ":" + (sc < 10 ? "0" : "") + sc;
+        };
+
+        const interface = p => {
+            dom.liga.style.display = p ? 'none' : 'block';
+            dom.para.style.display = p ? 'block' : 'none';
+        };
+
+        const carregar = (i, p = true) => {
+            index = (i + faixas.length) % faixas.length;
+            const f = faixas[index];
+            dom.titulo.textContent = f.t;
+            dom.som.src = f.s;
+            if (p) dom.som.play().then(() => interface(true)).catch(() => interface(false));
+        };
+
+        dom.botao.onclick = () => {
+            if (dom.som.paused) { dom.som.play(); interface(true); }
+            else { dom.som.pause(); interface(false); }
+        };
+
+        document.getElementById('voltar').onclick = () => carregar(index - 1);
+        document.getElementById('pular').onclick = () => carregar(index + 1);
+
+        dom.som.ontimeupdate = () => {
+            const d = dom.som.duration;
+            const a = dom.som.currentTime;
+            dom.cheio.style.width = ((a / d) * 100) + "%";
+            dom.atual.textContent = fmt(a);
+        };
+
+        dom.som.onloadedmetadata = () => dom.total.textContent = fmt(dom.som.duration);
+        dom.som.onended = () => carregar(index + 1);
+
+        dom.barra.onclick = e => {
+            const r = dom.barra.getBoundingClientRect();
+            dom.som.currentTime = ((e.clientX - r.left) / r.width) * dom.som.duration;
+        };
+
+        carregar(0, false);
+    </script>
 </body>
 </html>
